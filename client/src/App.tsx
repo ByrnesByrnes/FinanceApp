@@ -1,11 +1,14 @@
+import "antd/dist/reset.css";
 import "./App.css";
-import { SearchBar } from "modules/ui";
+import { Outlet } from "react-router-dom";
+import { TopNavigation } from "modules/navigation";
 
 function App() {
 
   return (
     <>
-      <SearchBar />
+      <TopNavigation />
+      <Outlet />
     </>
   );
 }
