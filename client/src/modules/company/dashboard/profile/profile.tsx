@@ -1,4 +1,5 @@
 import { List } from "antd";
+import { formatLargeNonMonetaryNumber, formatRatio } from "modules/ui";
 import { serviceClient } from "modules/web-services";
 import { CompanyKeyMetrics } from "modules/web-services/finance-api/interfaces/company";
 import { useEffect, useState } from "react";
@@ -93,13 +94,19 @@ const Profile = () => {
                 <List
                     loading={loading}
                     dataSource={items}
-                    renderItem={(item) => (
-                        <List.Item key={item.key}>
+                    renderItem={(item, index) => (
+                        <List.Item key={index}>
                             <List.Item.Meta
                                 title={item.title}
                                 description={item.subTitle}
                             />
-                            <div>{company[item.key as keyof CompanyKeyMetrics]}</div>
+                            <div>
+                                {
+                                    item.key === "marketCapTTM" ?
+                                        formatLargeNonMonetaryNumber(company[item.key as keyof CompanyKeyMetrics]) :
+                                        formatRatio(company[item.key as keyof CompanyKeyMetrics])
+                                }
+                            </div>
                         </List.Item>
                     )}
                 />

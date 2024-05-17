@@ -19,7 +19,7 @@ const Portfolio = ({ portfolio, removePortfolio }: Props) => {
                 <Title level={4} style={{ textAlign: "center" }}>Portfolio</Title>
             </Col>
             {portfolio.map((item: string, index: number) => (
-                <Col key={item} xs={12} sm={8} md={6} lg={4} xxl={4}>
+                <Col key={index} xs={12} sm={8} md={6} lg={4} xxl={4}>
                     <Card>
                         <Flex vertical align="center" gap={16}>
                             <Link to={`${ROUTES.COMPANY}/${item}`}>

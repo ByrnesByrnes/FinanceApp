@@ -1,4 +1,5 @@
 import { Table, TableProps } from "antd";
+import { formatLargeMonetaryNumber } from "modules/ui";
 import { serviceClient } from "modules/web-services";
 import { CompanyBalanceSheet } from "modules/web-services/finance-api/interfaces/company";
 import { useEffect, useState } from "react";
@@ -7,55 +8,55 @@ import { useOutletContext } from "react-router-dom";
 const columns: TableProps<Partial<CompanyBalanceSheet>>["columns"] = [
     {
         title: <div className="font-bold">Total Assets</div>,
-        render: (_, record) => record.totalAssets,
+        render: (_, record) => formatLargeMonetaryNumber(record.totalAssets),
     },
     {
         title: "Current Assets",
-        render: (_, record) => record.totalCurrentAssets,
+        render: (_, record) => formatLargeMonetaryNumber(record.totalCurrentAssets),
     },
     {
         title: "Total Cash",
-        render: (_, record) => record.cashAndCashEquivalents,
+        render: (_, record) => formatLargeMonetaryNumber(record.cashAndCashEquivalents),
     },
     {
         title: "Property & equipment",
-        render: (_, record) => record.propertyPlantEquipmentNet,
+        render: (_, record) => formatLargeMonetaryNumber(record.propertyPlantEquipmentNet),
     },
     {
         title: "Intangible Assets",
-        render: (_, record) => record.intangibleAssets,
+        render: (_, record) => formatLargeMonetaryNumber(record.intangibleAssets),
     },
     {
         title: "Long Term Debt",
-        render: (_, record) => record.longTermDebt,
+        render: (_, record) => formatLargeMonetaryNumber(record.longTermDebt),
     },
     {
         title: "Total Debt",
-        render: (_, record) => record.otherCurrentLiabilities,
+        render: (_, record) => formatLargeMonetaryNumber(record.otherCurrentLiabilities),
     },
     {
-        title: <div className="font-bold">Total Liabilites</div>,
-        render: (_, record) => record.totalLiabilities,
+        title: <div className="font-bold">Total Liabilities</div>,
+        render: (_, record) => formatLargeMonetaryNumber(record.totalLiabilities),
     },
     {
         title: "Current Liabilities",
-        render: (_, record) => record.totalCurrentLiabilities,
+        render: (_, record) => formatLargeMonetaryNumber(record.totalCurrentLiabilities),
     },
     {
         title: "Long-Term Debt",
-        render: (_, record) => record.longTermDebt,
+        render: (_, record) => formatLargeMonetaryNumber(record.longTermDebt),
     },
     {
         title: "Long-Term Income Taxes",
-        render: (_, record) => record.otherLiabilities,
+        render: (_, record) => formatLargeMonetaryNumber(record.otherLiabilities),
     },
     {
         title: "Stakeholder's Equity",
-        render: (_, record) => record.totalStockholdersEquity,
+        render: (_, record) => formatLargeMonetaryNumber(record.totalStockholdersEquity),
     },
     {
         title: "Retained Earnings",
-        render: (_, record) => record.retainedEarnings,
+        render: (_, record) => formatLargeMonetaryNumber(record.retainedEarnings),
     },
 ];
 
@@ -79,7 +80,13 @@ const BalanceStatement = () => {
         getBalanceSheets();
     }, []);
 
-    return <Table loading={loading} dataSource={balanceSheet} columns={columns} scroll={{ x: 700 }} />;
+    return <Table
+        rowKey={(record) => `${record.finalLink}`}
+        loading={loading}
+        dataSource={balanceSheet}
+        columns={columns}
+        scroll={{ x: 700 }}
+    />;
 };
 
 export default BalanceStatement;

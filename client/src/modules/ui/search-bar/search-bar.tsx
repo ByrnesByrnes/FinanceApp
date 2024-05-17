@@ -15,7 +15,6 @@ const SearchBar = () => {
             .financeApi
             .search(search)
             .then((companies) => setCompanies(companies))
-            .catch((error) => console.log(error))
             .finally(() => { });
     };
 
@@ -41,8 +40,8 @@ const SearchBar = () => {
                     <List
                         bordered
                         dataSource={companies}
-                        renderItem={(company) =>
-                            <Card company={company} />
+                        renderItem={(company, index) =>
+                            <Card key={index} company={company} />
                         }
                     />
                 </div>

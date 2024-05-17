@@ -233,7 +233,7 @@ export interface CompanyCashFlow {
     commonStockIssued: number;
     commonStockRepurchased: number;
     dividendsPaid: number;
-    otherFinancingActivities: number;
+    otherFinancingActivites: number;
     netCashUsedProvidedByFinancingActivities: number;
     effectOfForexChangesOnCash: number;
     netChangeInCash: number;

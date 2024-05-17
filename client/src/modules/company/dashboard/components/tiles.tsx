@@ -1,6 +1,6 @@
 import { Card, Flex, Typography } from "antd";
 
-const { Text } = Typography;
+const { Text, Title } = Typography;
 
 type Props = {
     title: string;
@@ -13,7 +13,7 @@ const Tiles = ({ title, subTitle, dollar }: Props) => {
         <Card bordered={false}>
             <Flex vertical>
                 <Text strong>{title}</Text>
-                <Text type="secondary">{dollar && "$"} {subTitle}</Text>
+                <Title style={{ margin: 0 }} level={5}>{dollar && "$"}{subTitle}</Title>
             </Flex>
         </Card>
     );

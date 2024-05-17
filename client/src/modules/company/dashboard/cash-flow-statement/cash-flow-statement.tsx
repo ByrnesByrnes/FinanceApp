@@ -1,4 +1,5 @@
 import { Table, TableProps } from "antd";
+import { formatLargeMonetaryNumber } from "modules/ui";
 import { serviceClient } from "modules/web-services";
 import { CompanyCashFlow } from "modules/web-services/finance-api/interfaces/company";
 import { useEffect, useState } from "react";
@@ -11,31 +12,31 @@ const columns: TableProps<Partial<CompanyCashFlow>>["columns"] = [
     },
     {
         title: "Operating Cashflow",
-        render: (_, record) => record.operatingCashFlow,
+        render: (_, record) => formatLargeMonetaryNumber(record.operatingCashFlow),
     },
     {
         title: "Investing Cashflow",
-        render: (_, record) => record.netCashUsedForInvestingActivites,
+        render: (_, record) => formatLargeMonetaryNumber(record.netCashUsedForInvestingActivites),
     },
     {
         title: "Financing Cashflow",
-        render: (_, record) => record.netCashUsedProvidedByFinancingActivities,
+        render: (_, record) => formatLargeMonetaryNumber(record.netCashUsedProvidedByFinancingActivities),
     },
     {
         title: "Cash At End of Period",
-        render: (_, record) => record.cashAtEndOfPeriod,
+        render: (_, record) => formatLargeMonetaryNumber(record.cashAtEndOfPeriod),
     },
     {
         title: "CapEX",
-        render: (_, record) => record.capitalExpenditure,
+        render: (_, record) => formatLargeMonetaryNumber(record.capitalExpenditure),
     },
     {
         title: "Issuance Of Stock",
-        render: (_, record) => record.commonStockIssued,
+        render: (_, record) => formatLargeMonetaryNumber(record.commonStockIssued),
     },
     {
         title: "Free Cash Flow",
-        render: (_, record) => record.freeCashFlow,
+        render: (_, record) => formatLargeMonetaryNumber(record.freeCashFlow),
     },
 ];
 
@@ -50,8 +51,7 @@ const CashFlowStatement = () => {
         serviceClient
             .financeApi
             .getCashFlowStatement(ticker)
-            .then((data) => {
-                console.log(data);
+            .then((data) => {                
                 setCashFlow(data);
             }).finally(() => {
                 setLoading(false);
@@ -62,7 +62,12 @@ const CashFlowStatement = () => {
         getCashFlowStatement();
     }, []);
 
-    return <Table loading={loading} dataSource={cashFlow} columns={columns} />;
+    return <Table
+        rowKey={(record) => `${record.finalLink}`}
+        loading={loading}
+        dataSource={cashFlow}
+        columns={columns}
+    />;
 
 };
 export default CashFlowStatement;

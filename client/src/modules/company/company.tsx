@@ -46,10 +46,10 @@ const Company = () => {
                                 <Tile title="Price" subTitle={company.price} dollar />
                             </Col>
                             <Col xs={24} sm={12} md={12} lg={6}>
-                                <Tile title="DCF" subTitle={company.dcf} dollar />
+                                <Tile title="DCF" subTitle={company.dcf.toFixed(3)} dollar />
                             </Col>
                             <Col xs={24} sm={12} md={12} lg={6}>
-                                <Tile title="Company Name" subTitle={company.sector} />
+                                <Tile title="Sector" subTitle={company.sector} />
                             </Col>
                             <Col span={24}>
                                 <TenKFinder ticker={company.symbol} />
