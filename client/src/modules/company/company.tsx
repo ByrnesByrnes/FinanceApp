@@ -37,16 +37,16 @@ const Company = () => {
             <Content style={{ padding: paddingLG }}>
                 <Spin spinning={loading}>
                     <Row gutter={[16, 16]}>
-                        <Col span={4}>
+                        <Col xs={24} sm={12} md={12} lg={6}>
                             <Tile title="Company Name" subTitle={company?.companyName} />
                         </Col>
-                        <Col span={4}>
+                        <Col xs={24} sm={12} md={12} lg={6}>
                             <Tile title="Price" subTitle={company?.price} dollar />
                         </Col>
-                        <Col span={4}>
+                        <Col xs={24} sm={12} md={12} lg={6}>
                             <Tile title="DCF" subTitle={company?.dcf} dollar />
                         </Col>
-                        <Col span={4}>
+                        <Col xs={24} sm={12} md={12} lg={6}>
                             <Tile title="Company Name" subTitle={company?.sector} />
                         </Col>
                         <Col span={24}>

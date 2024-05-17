@@ -15,7 +15,7 @@ const Sidebar = () => {
     return (
         <Sider style={{ background: colorBgElevated }}>
             <Menu
-                style={{ height: '100%', borderRight: 0 }}
+                style={{ height: "100%", borderRight: 0 }}
                 items={[
                     {
                         key: "company",
@@ -26,6 +26,16 @@ const Sidebar = () => {
                         key: "statement",
                         icon: <Icon component={IoDocumentTextOutline} />,
                         label: <Link to={ROUTES.COMPANY_STATEMENT}>Income Statement</Link>,
+                    },
+                    {
+                        key: "balance-sheet",
+                        icon: <Icon component={IoDocumentTextOutline} />,
+                        label: <Link to={ROUTES.BALANCE_SHEET}>Balance Sheet</Link>,
+                    },
+                    {
+                        key: "cash-flow-statement",
+                        icon: <Icon component={IoDocumentTextOutline} />,
+                        label: <Link to={ROUTES.CASH_FLOW_STATEMENT}>Cash Flow Statement</Link>,
                     }
                 ]}
             />

@@ -1,5 +1,5 @@
 import App from "App";
-import { Company, IncomeStatement, Profile } from "modules/company";
+import { BalanceSheet, CashFlowStatement, Company, IncomeStatement, Profile } from "modules/company";
 import Search from "modules/search/search";
 import { Main } from "modules/user";
 import { createBrowserRouter } from "react-router-dom";
@@ -18,6 +18,8 @@ export const router = createBrowserRouter([
                 children: [
                     { path: "profile", element: <Profile /> },
                     { path: "income-statement", element: <IncomeStatement /> },
+                    { path: "balance-sheet", element: <BalanceSheet /> },
+                    { path: "cash-flow-statement", element: <CashFlowStatement /> },
                 ]
             }
         ]
