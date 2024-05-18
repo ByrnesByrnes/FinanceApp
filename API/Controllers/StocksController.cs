@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    [Route("api/stock")]
     [ApiController]
+    [Route("api/stock")]
     public class StocksController : ControllerBase
     {
         private readonly IStockRepository _stockRepository;
@@ -61,7 +61,7 @@ namespace API.Controllers
 
             var stockDto = _mapper.Map<StockDto>(stock);
 
-            return CreatedAtAction(nameof(GetById), new { id = stockDto.Id }, stockDto);
+            return CreatedAtAction(nameof(GetById), new { Id = stockDto.Id }, stockDto);
         }
 
         [HttpPut]
@@ -69,7 +69,6 @@ namespace API.Controllers
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateStockRequestDto updateDto)
         {
             var stock = await _stockRepository.GetByIdAsync(id);
-
 
             if (stock == null)
             {
