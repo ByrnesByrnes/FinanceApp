@@ -6,7 +6,8 @@ namespace API.Dtos.Comment
         public string Title { get; set; } = string.Empty;
         public string Content { get; set; } = string.Empty;
         public DateTime CreatedOn { get; set; } = DateTime.Now;
-
+        public DateTime UpdatedOn { get; set; } = DateTime.Now;
+        public bool Edited { get; set; } = false;
         public int? StockId { get; set; }
     }
 }

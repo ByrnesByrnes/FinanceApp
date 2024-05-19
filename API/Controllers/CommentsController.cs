@@ -24,6 +24,8 @@ namespace API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
             var comments = await _commentRepository.GetAllAsync();
 
             var commentDtos = _mapper.Map<IEnumerable<CommentDto>>(comments);
@@ -32,9 +34,11 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        [Route("{id}")]
+        [Route("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
             var comment = await _commentRepository.GetByIdAsync(id);
 
             if (comment == null)
@@ -47,9 +51,11 @@ namespace API.Controllers
             return Ok(commentDto);
         }
 
-        [HttpPost("{stockId}")]
+        [HttpPost("{stockId:int}")]
         public async Task<IActionResult> Create([FromRoute] int stockId, [FromBody] CreateCommentRequestDto createCommentDto)
         {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
             if (!await _stockRepository.StockExist(stockId))
             {
                 return BadRequest("Stock does not exist");
@@ -73,10 +79,39 @@ namespace API.Controllers
             return CreatedAtAction(nameof(GetById), new { Id = commentDto.Id }, commentDto);
         }
 
+        [HttpPut]
+        [Route("{id:int}")]
+        public async Task<IActionResult> Update([FromRoute] int id, UpdateCommentRequestDto updateCommentDto)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            var comment = await _commentRepository.GetByIdAsync(id);
+
+            if (comment == null)
+            {
+                return NotFound();
+            }
+
+            comment.Title = updateCommentDto.Title;
+            comment.Content = updateCommentDto.Content;
+            comment.UpdatedOn = DateTime.Now;
+            comment.Edited = true;
+
+            var result = await _commentRepository.SaveChanges();
+            if (!result)
+            {
+                return BadRequest(new ProblemDetails { Title = "Unable to Update Comment." });
+            }
+
+            return NoContent();
+        }
+
         [HttpDelete]
-        [Route("{id}")]
+        [Route("{id:int}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
             var comment = await _commentRepository.GetByIdAsync(id);
 
             if (comment == null)
