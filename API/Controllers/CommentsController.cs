@@ -81,7 +81,7 @@ namespace API.Controllers
 
         [HttpPut]
         [Route("{id:int}")]
-        public async Task<IActionResult> Update([FromRoute] int id, UpdateCommentRequestDto updateCommentDto)
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateCommentRequestDto updateCommentDto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
@@ -89,7 +89,7 @@ namespace API.Controllers
 
             if (comment == null)
             {
-                return NotFound();
+                return NotFound("Comment Not Found");
             }
 
             comment.Title = updateCommentDto.Title;

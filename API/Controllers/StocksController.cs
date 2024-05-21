@@ -1,4 +1,5 @@
 using API.Dots.Stock;
+using API.Helpers;
 using API.interfaces;
 using API.Models;
 using AutoMapper;
@@ -20,11 +21,11 @@ namespace API.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] QueryObject query)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var stocks = await _stockRepository.GetAllAsync();
+            var stocks = await _stockRepository.GetAllAsync(query);
 
             var stocksDto = _mapper.Map<IEnumerable<StockDto>>(stocks);
 
